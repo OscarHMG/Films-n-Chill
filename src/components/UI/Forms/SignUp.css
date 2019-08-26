@@ -1,0 +1,37 @@
+
+img{
+    width: auto;
+    height: 314px;
+    object-fit: contain;
+}
+
+form{
+  width: 100%;
+  text-align: center;
+  padding-right: 10px;
+}
+
+.SignupImage{
+  margin-top: 10%;
+  text-align: center;
+}
+
+
+
+.Terms{
+  font-size: 11px !important;
+}
+
+
+.BtnSignUp{
+  margin-top: 10px;
+  text-align: center;
+}
+
+.SignUpContainer{
+  margin-top: 8%;
+}
+
+.Center{
+  
+}
