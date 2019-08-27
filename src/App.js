@@ -3,7 +3,7 @@ import "./index.css";
 import SignUp from './components/UI/Forms/SignUp'
 function App() {
   return (
-    <div class="">
+    <div className="">
       <SignUp/>
     </div>
     

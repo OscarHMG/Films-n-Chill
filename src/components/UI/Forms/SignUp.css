@@ -12,7 +12,7 @@ form{
 }
 
 .SignupImage{
-  margin-top: 10%;
+  margin-top: 3%;
   text-align: center;
 }
 
@@ -32,6 +32,6 @@ form{
   margin-top: 8%;
 }
 
-.Center{
-  
+.Pointer{
+  cursor: pointer;
 }

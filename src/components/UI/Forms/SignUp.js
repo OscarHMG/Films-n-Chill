@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import signUpImage from "../../../assets/images/video_streaming.png";
+import signInImage from "../../../assets/images/login_image.png"
 import Button from "../Button/Button";
 import Input from "../Input/Input.js";
 import classes from "./SignUp.css";
@@ -17,10 +18,11 @@ export default class SignUp extends Component {
         valid: false,
         touched: false,
         validationRules: {
+          isRequired: true,
           minLength: 8,
-          isRequired: true
+          
         },
-        errorMsg: ""
+        errorMsg: null
       },
       email: {
         value: "",
@@ -29,11 +31,10 @@ export default class SignUp extends Component {
         valid: false,
         touched: false,
         validationRules: {
-          minLength: 8,
           isRequired: true,
-          isEmail: false
+          isEmail: true
         },
-        errorMsg: ""
+        errorMsg: null
       },
       password: {
         value: "",
@@ -42,13 +43,40 @@ export default class SignUp extends Component {
         valid: false,
         touched: false,
         validationRules: {
-          minLength: 6,
-          isRequired: true
+          isRequired: true,
+          minLength: 6
+          
         },
-        errorMsg: ""
+        errorMsg: null
       }
     },
-    signInControls: {}
+    signInControls: {
+      email: {
+        value: "",
+        placeHolder: "Email",
+        type: "email",
+        valid: false,
+        touched: false,
+        validationRules: {
+          isRequired: true,
+          isEmail: true
+        },
+        errorMsg: null
+      },
+      password: {
+        value: "",
+        placeHolder: "Password",
+        type: "password",
+        valid: false,
+        touched: false,
+        validationRules: {
+          isRequired: true,
+          minLength: 6
+          
+        },
+        errorMsg: null
+      }
+    }
   };
 
 
@@ -67,10 +95,23 @@ export default class SignUp extends Component {
     updateSignUpElement.value= event.target.value;
 
     //Update the rules validation
-    updateSignUpElement.valid = this.checkValidations(
+    /* updateSignUpElement.valid = this.checkValidations(
       updateSignUpElement.value, 
       updateSignUpElement.validationRules
+    ); */
+
+
+    let errorObject = this.checkValidations(
+      updateSignUpElement.value, 
+      updateSignUpElement.validationRules,
+      elementId
     );
+    
+    console.log(updateSignUpElement);
+
+    updateSignUpElement.valid = errorObject.isValid;
+    updateSignUpElement.errorMsg = errorObject.errorMessage;
+
 
     updateSignUpElement.touched = true;
 
@@ -89,6 +130,8 @@ export default class SignUp extends Component {
       isValid: formValid
     });
 
+    console.log(updateSignUpControls);
+
   }
 
   signUpConfig (){
@@ -101,6 +144,7 @@ export default class SignUp extends Component {
       });
     }
 
+
     let signUpElements = formElements.map(el => {
       return(
         
@@ -108,10 +152,12 @@ export default class SignUp extends Component {
           key={el.id}
           wrapperclass="col s12 input-field"
           validate="validate"
+          isValid = {this.state.signUpControls[el.id].valid}
           id={el.id}
           type={el.config.type}
           label={el.config.placeHolder}
           value={el.config.value}
+          error={el.config.errorMsg}
           changeHandler={ event => this.inputHandler(event, el.id)}/>
       );
     });
@@ -119,61 +165,129 @@ export default class SignUp extends Component {
     return signUpElements;
   }
 
+  signInConfig (){
+
+    let formElements = [];
+    for (let key in this.state.signInControls) {
+      formElements.push({
+        id: key,
+        config: this.state.signInControls[key]
+      });
+    }
+
+
+   let signInElements= formElements.map(el => {
+      return(
+        
+        <Input
+          key={el.id}
+          wrapperclass="col s12 input-field"
+          validate="validate"
+          isValid = {this.state.signInControls[el.id].valid}
+          id={el.id}
+          type={el.config.type}
+          label={el.config.placeHolder}
+          value={el.config.value}
+          error={el.config.errorMsg}
+          changeHandler={ event => this.inputHandler(event, el.id)}/>
+      );
+    });
+
+    return signInElements;
+
+  }
+
+
+  checkValidations = (value, rules, elementID) =>{
+    let isValid =true;
+    let errorMessage = '';
+    const pattern = /[a-zA-Z0-9]+[\.]?([a-zA-Z0-9]+)?[\@][a-z]{3,9}[\.][a-z]{2,5}/g;
+    
+
+    if(rules.isRequired){
+      isValid = value.trim() !== "" && isValid;
+      
+      errorMessage = (!isValid) ? "This field is required": null;
+    }
+
+    if(rules.minLength){
+      isValid = value.length >= rules.minLength && isValid;
+      errorMessage = !isValid ? "Min char is "+rules.minLength : null;
+    }
+
+    
+    if(rules.isEmail){
+      isValid = pattern.test(value) && isValid;
+      errorMessage = !isValid ? "Email format is not valid": null;
+    }
+
+    errorMessage = isValid ? null: errorMessage;
+    
+    return {
+      isValid,
+      errorMessage
+    }
+  }
+
+  setLeftSection(){
+    let leftSection = null;
+    if(this.state.isSignUpForm){
+      leftSection = (
+        <div className={"card-image " + classes.SignupImage}>   
+          <img src={signUpImage} /> 
+          <a className={classes.Pointer} onClick={this.switchSignUpHandler}> I am already member </a>
+        </div>);
+    }else{
+      leftSection = (
+        <div className={"card-image " + classes.SignupImage}>   
+          <img src={signInImage} /> 
+          <a className={classes.Pointer} onClick={this.switchSignUpHandler}> Create an account </a>
+        </div>
+      );
+    }
+
+    return leftSection;
+  }
+  
+
+  setForm(){
+    let formElements;
+    if(this.state.isSignUpForm){
+      formElements = this.signUpConfig();
+    }else{
+      formElements = this.signInConfig();
+    }
+
+    return formElements;
+  }
+
+  switchSignUpHandler = () =>{
+    this.setState( prevState  =>{
+      return{
+        isSignUpForm:  ! prevState.isSignUpForm
+      }
+      
+    });
+  }
+
 
   
 
-
-  checkValidations = (value, rules) => {
-    let isValid = true;
-
-    if (rules.required) isValid = value.trim() !== "" && isValid;
-
-    if (rules.minLenght) isValid = value.length >= rules.minLenght && isValid;
-
-    if (rules.maxLenght) isValid = value.length <= rules.minLenght && isValid;
-
-    return isValid;
-  };
-
   render() {
-    let signUpItems = this.signUpConfig();
+    let items = this.setForm();
     return (
       <div className={"row " + classes.SignUpContainer}>
         <div className="col s12 m8 offset-m2 l6 offset-l3">
           <div className="card horizontal hoverable">
-            <div className={"card-image " + classes.SignupImage}>
-              <img src={signUpImage} /> <a href="#"> I am already member </a>
-            </div>
+            {this.setLeftSection()}
             <div className="card-stacked">
-              <h3 className="card-title center-align"> Sign Up </h3>
+              <h3 className="card-title center-align"> {this.state.isSignUpForm ? "Sign Up": "Sign In"} </h3>
               <div className="card-content">
                 <form>
                   <div className="row">
                     
-                  {signUpItems}
-                    {/* <Input
-                      wrapperClass="col s12 input-field"
-                      validate="validate"
-                      id="fullName"
-                      type="text"
-                      label="Full name"
-                    />
-
-                    <Input
-                      wrapperClass="col s12 input-field"
-                      validate="validate"
-                      id="email"
-                      type="email"
-                      label="Email address"
-                    />
-
-                    <Input
-                      wrapperClass="col s12 input-field"
-                      validate="validate"
-                      id="password"
-                      type="password"
-                      label="Password"
-                    /> */}
+                  {items}
+                    
                   </div>
                   <p>
                     <label>
@@ -184,13 +298,14 @@ export default class SignUp extends Component {
                       </span>
                     </label>
                   </p>
+                  
                   <Button
                     className={classes.BtnSignUp}
-                    icon="how_to_reg"
+                    icon={this.state.isSignUpForm ? "how_to_reg" : "input"}
                     iconAlign="left"
                     type="submit"
                   >
-                    Register
+                    {this.state.isSignUpForm? "Register" : "Login"}
                   </Button>
                 </form>
               </div>
