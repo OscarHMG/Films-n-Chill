@@ -5,24 +5,153 @@ import Input from "../Input/Input.js";
 import classes from "./SignUp.css";
 
 export default class SignUp extends Component {
+  state = {
+    isSignUpForm: true,
+    isValid: false,
+    acceptTerms: false,
+    signUpControls: {
+      fullName: {
+        value: "",
+        placeHolder: "Full name",
+        type: "text",
+        valid: false,
+        touched: false,
+        validationRules: {
+          minLength: 8,
+          isRequired: true
+        },
+        errorMsg: ""
+      },
+      email: {
+        value: "",
+        placeHolder: "Email",
+        type: "email",
+        valid: false,
+        touched: false,
+        validationRules: {
+          minLength: 8,
+          isRequired: true,
+          isEmail: false
+        },
+        errorMsg: ""
+      },
+      password: {
+        value: "",
+        placeHolder: "Password",
+        type: "password",
+        valid: false,
+        touched: false,
+        validationRules: {
+          minLength: 6,
+          isRequired: true
+        },
+        errorMsg: ""
+      }
+    },
+    signInControls: {}
+  };
+
+
+  inputHandler = (event, elementId) =>{
+    //Updating all the state of the controls
+    const updateSignUpControls ={
+      ...this.state.signUpControls
+    }
+
+    //Updating the specific input state
+    const updateSignUpElement ={
+      ...updateSignUpControls[elementId]
+    }
+
+    //Then update the value
+    updateSignUpElement.value= event.target.value;
+
+    //Update the rules validation
+    updateSignUpElement.valid = this.checkValidations(
+      updateSignUpElement.value, 
+      updateSignUpElement.validationRules
+    );
+
+    updateSignUpElement.touched = true;
+
+
+    let formValid = true;
+
+    for(let inputId in updateSignUpControls){
+      formValid = updateSignUpControls[inputId].isValid && formValid;
+    }
+
+
+    updateSignUpControls[elementId] = updateSignUpElement;
+
+    this.setState({
+      signUpControls:updateSignUpControls,
+      isValid: formValid
+    });
+
+  }
+
+  signUpConfig (){
+
+    let formElements = [];
+    for (let key in this.state.signUpControls) {
+      formElements.push({
+        id: key,
+        config: this.state.signUpControls[key]
+      });
+    }
+
+    let signUpElements = formElements.map(el => {
+      return(
+        
+        <Input
+          key={el.id}
+          wrapperclass="col s12 input-field"
+          validate="validate"
+          id={el.id}
+          type={el.config.type}
+          label={el.config.placeHolder}
+          value={el.config.value}
+          changeHandler={ event => this.inputHandler(event, el.id)}/>
+      );
+    });
+
+    return signUpElements;
+  }
+
+
+  
+
+
+  checkValidations = (value, rules) => {
+    let isValid = true;
+
+    if (rules.required) isValid = value.trim() !== "" && isValid;
+
+    if (rules.minLenght) isValid = value.length >= rules.minLenght && isValid;
+
+    if (rules.maxLenght) isValid = value.length <= rules.minLenght && isValid;
+
+    return isValid;
+  };
+
   render() {
-    
-
-
+    let signUpItems = this.signUpConfig();
     return (
       <div className={"row " + classes.SignUpContainer}>
         <div className="col s12 m8 offset-m2 l6 offset-l3">
           <div className="card horizontal hoverable">
             <div className={"card-image " + classes.SignupImage}>
-              <img src={signUpImage} />
-              <a href="#">I am already member</a>
+              <img src={signUpImage} /> <a href="#"> I am already member </a>
             </div>
             <div className="card-stacked">
-              <h3 className="card-title center-align">Sign Up</h3>
+              <h3 className="card-title center-align"> Sign Up </h3>
               <div className="card-content">
                 <form>
                   <div className="row">
-                    <Input
+                    
+                  {signUpItems}
+                    {/* <Input
                       wrapperClass="col s12 input-field"
                       validate="validate"
                       id="fullName"
@@ -44,19 +173,17 @@ export default class SignUp extends Component {
                       id="password"
                       type="password"
                       label="Password"
-                    />
+                    /> */}
                   </div>
-
                   <p>
                     <label>
                       <input type="checkbox" />
                       <span className={classes.Terms}>
-                        I agree all statements in{" "}
-                        <strong>Terms of service</strong>
+                        I agree all statements in
+                        <strong> Terms of service </strong>
                       </span>
                     </label>
                   </p>
-
                   <Button
                     className={classes.BtnSignUp}
                     icon="how_to_reg"
@@ -73,74 +200,4 @@ export default class SignUp extends Component {
       </div>
     );
   }
-}
-
-{
-  /* <div className="container card hoverable ">
-        <div className="row signup-content">
-          <div className="col s6 signup-form ">
-            <h3 className="card-title center-align">Sign Up</h3>
-            <div class="valign-wrapper row ">
-              <div class="col s12">
-                <form>
-                  <div class="row">
-                    <div class="input-field col s12">
-                      <label for="fullName">Full name</label>
-                      <input
-                        type="text"
-                        class="validate"
-                        name="fullName"
-                        id="fullName"
-                      />
-                    </div>
-
-                    <div class="input-field col s12">
-                      <label for="email">Email address</label>
-                      <input
-                        type="email"
-                        class="validate"
-                        name="email"
-                        id="email"
-                      />
-                    </div>
-
-                    <div class="input-field col s12">
-                      <label for="password">Password </label>
-                      <input
-                        type="password"
-                        class="validate"
-                        name="password"
-                        id="password"
-                      />
-                    </div>
-                  </div>
-
-                  <p>
-                    <label>
-                      <input type="checkbox" />
-                      <span>
-                        I agree all statements in{" "}
-                        <strong>Terms of service</strong>
-                      </span>
-                    </label>
-                  </p>
-
-                  <button
-                    class="btn waves-effect waves-light"
-                    type="submit"
-                    disabled
-                    name="action">
-                    Register
-                    <i class="material-icons left">how_to_reg</i>
-                  </button>
-                </form>
-              </div>
-            </div>
-          </div>
-
-          <div className="col s6 signup-image">
-            <img src={signUpImage} />
-          </div>
-        </div>
-      </div> */
 }
