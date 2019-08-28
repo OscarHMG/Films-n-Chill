@@ -1,0 +1,21 @@
+.containerImg {
+    position: relative;
+    text-align: center;
+    color: white;
+    width: 100%;
+    
+    background-image: url("https://images.unsplash.com/photo-1515089836358-4c06e3b50c80");
+}
+
+.centered {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.ImgCover{
+    width: 100%;
+    filter: brightness(0.5);
+}
+

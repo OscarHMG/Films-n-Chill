@@ -82,6 +82,7 @@ export default class SignUp extends Component {
 
   inputHandler = (event, elementId) =>{
     //Updating all the state of the controls
+
     const updateSignUpControls ={
       ...this.state.signUpControls
     }
@@ -92,13 +93,13 @@ export default class SignUp extends Component {
     }
 
     //Then update the value
-    updateSignUpElement.value= event.target.value;
+    //updateSignUpElement.value= event.target.value;
 
     //Update the rules validation
-    /* updateSignUpElement.valid = this.checkValidations(
+    updateSignUpElement.valid = this.checkValidations(
       updateSignUpElement.value, 
       updateSignUpElement.validationRules
-    ); */
+    );
 
 
     let errorObject = this.checkValidations(
@@ -107,7 +108,7 @@ export default class SignUp extends Component {
       elementId
     );
     
-    console.log(updateSignUpElement);
+    //console.log(updateSignUpElement);
 
     updateSignUpElement.valid = errorObject.isValid;
     updateSignUpElement.errorMsg = errorObject.errorMessage;
@@ -147,7 +148,6 @@ export default class SignUp extends Component {
 
     let signUpElements = formElements.map(el => {
       return(
-        
         <Input
           key={el.id}
           wrapperclass="col s12 input-field"
@@ -159,8 +159,7 @@ export default class SignUp extends Component {
           value={el.config.value}
           error={el.config.errorMsg}
           changeHandler={ event => this.inputHandler(event, el.id)}/>
-      );
-    });
+      )});
 
     return signUpElements;
   }
@@ -234,13 +233,13 @@ export default class SignUp extends Component {
     if(this.state.isSignUpForm){
       leftSection = (
         <div className={"card-image " + classes.SignupImage}>   
-          <img src={signUpImage} /> 
+          <img src={signUpImage} className={classes.ImgForm} /> 
           <a className={classes.Pointer} onClick={this.switchSignUpHandler}> I am already member </a>
         </div>);
     }else{
       leftSection = (
         <div className={"card-image " + classes.SignupImage}>   
-          <img src={signInImage} /> 
+          <img src={signInImage} className={classes.ImgForm} /> 
           <a className={classes.Pointer} onClick={this.switchSignUpHandler}> Create an account </a>
         </div>
       );
@@ -304,6 +303,7 @@ export default class SignUp extends Component {
                     icon={this.state.isSignUpForm ? "how_to_reg" : "input"}
                     iconAlign="left"
                     type="submit"
+                    disabled={this.state.isValid}
                   >
                     {this.state.isSignUpForm? "Register" : "Login"}
                   </Button>
