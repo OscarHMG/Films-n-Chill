@@ -1,21 +1,89 @@
 .containerImg {
-    position: relative;
+    /* position: relative;
     text-align: center;
     color: white;
     width: 100%;
     
-    background-image: url("https://images.unsplash.com/photo-1515089836358-4c06e3b50c80");
+    background-image: url("https://images.unsplash.com/photo-1515089836358-4c06e3b50c80"); */
+
+    /* Location of the image */
+    background-image: url('../../assets/images/home_film_chill.jpg');
+
+    /* Background image is centered vertically and horizontally at all times */
+    background-position: center center;
+
+    /* Background image doesn't tile */
+    background-repeat: no-repeat;
+
+    /* Background image is fixed in the viewport so that it doesn't move when 
+        the content's height is greater than the image's height */
+    background-attachment: fixed;
+
+    /* This is what makes the background image rescale based
+        on the container's size */
+    background-size: cover;
+
+    /* Set a background color that will be displayed
+        while the background image is loading */
+    background-color: #464646;
+
+    min-height: 650px;
+
+    /* filter: brightness(0.6); */
 }
 
-.centered {
+.BackgroundTint{
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background-color: rgba(0,0,0,0.6)
+}
+
+.Centered {
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
+    text-align: center;
+    max-width: 500px;
 }
 
-.ImgCover{
-    width: 100%;
-    filter: brightness(0.5);
+
+
+.IntroTitle{
+    font-weight: bold;
 }
 
+.TextDescriptionContainer{
+    padding-right: 45px;
+    padding-left: 45px;
+}
+
+
+.TitleDescription{
+    font-weight: bolder;
+    text-align: center;
+}
+
+.TextDescription{
+    font-size: 30px;
+    text-align: 
+}
+
+
+
+.ContainerDescription{
+    padding-top: 50px;
+    background: #000000;
+    padding-left: 50px;
+    padding-right: 50px;
+}
+
+.ImgDescription{
+    padding:50px;
+}
+
+.PageFooter{
+    background-color: #000000 !important;
+}
