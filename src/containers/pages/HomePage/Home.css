@@ -7,7 +7,7 @@
     background-image: url("https://images.unsplash.com/photo-1515089836358-4c06e3b50c80"); */
 
     /* Location of the image */
-    background-image: url('../../assets/images/home_film_chill.jpg');
+    background-image: url('../../../assets/images/home_film_chill.jpg');
 
     /* Background image is centered vertically and horizontally at all times */
     background-position: center center;

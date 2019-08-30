@@ -1,9 +1,10 @@
 import React from "react";
 import "./index.css";
-import SignUp from './components/UI/Forms/SignUp'
+import SignUp from './containers/pages/SignUpPage/SignUp'
 import { Route, Switch} from "react-router-dom";
 import MainTemplate from "./containers/MainTemplate/MainTemplate";
-import HomePage from './containers/HomePage/HomePage'
+import Home from './containers/pages/HomePage/Home'
+import SignIn from './containers/pages/SignInPage/SignIn'
 
 
 function App() {
@@ -11,8 +12,9 @@ function App() {
     <div className="">
       <MainTemplate>
         <Switch>
-          <Route path="/" exact component={HomePage} />
-          <Route path="/signIn" exact component={SignUp} />
+          <Route path="/" exact component={Home} />
+          <Route path="/signUp" exact component={SignUp} />
+          <Route path="/signIn" exact component={SignIn} />
           
         </Switch>
       </MainTemplate>

@@ -1,0 +1,41 @@
+.Form{
+    width: 100%;
+    padding: 0px 0px 0px 25px !important;
+    margin-top: 10px
+}
+
+.ContainerCardStacked{
+    padding: 0px 35px 25px 0px;
+
+}
+
+.Terms{
+    font-size: 11px !important;
+}
+
+.RowForm{
+    margin-bottom: 0px !important;
+}
+
+.BtnSignUp{
+    margin-top: 10px;
+    text-align: center;
+}
+
+.SignInLink {
+    border-top: none !important;
+    padding: 5px 50px 10px 0px !important;
+    
+}
+
+.SignInText {
+    text-transform: inherit !important;
+}
+
+.Centered {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    /* text-align: center; */
+}

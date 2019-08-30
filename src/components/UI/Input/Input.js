@@ -1,24 +1,22 @@
 import React from "react";
 import classes from "./Input.css";
 
-console.log(classes);
+
 const input = props => {
 
   let classesInput = [props.validate];
   if(props.value !== ''){
-    if(props.error === null)
-      classesInput.push('valid');
-    else
+    if(props.error !== null)
       classesInput.push('invalid');
   }
 
-  //let classesInput = props.validate +" "+ (props.isValid ? 'valid' : 'invalid');
   return (
     <div className={props.wrapperclass + " " + classes.WrapperMargins}>
       <label htmlFor={props.id}>{props.label}</label>
       <input
         id={props.id}
         type={props.type}
+        placeholder={props.placeholder}
         className={classesInput.join(' ')}
         value={props.value}
         onChange={props.changeHandler}

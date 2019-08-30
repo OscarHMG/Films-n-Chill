@@ -1,0 +1,31 @@
+.PlanDescription{
+    display: flex;
+    margin: auto;
+    justify-content: center;
+
+}
+
+.IconMargin{
+    margin-right: 8px;
+}
+
+.DisabledTextColor{
+    color: #a6a6a6;
+}
+
+.Pointer{
+    cursor: pointer;
+}
+
+.CenterTittle{
+    display: flex !important;
+    justify-content: center;
+}
+
+.ButtonWidth{
+    width:350px;
+}
+
+.InactivePlan {
+    background: #f2f2f2;
+}
