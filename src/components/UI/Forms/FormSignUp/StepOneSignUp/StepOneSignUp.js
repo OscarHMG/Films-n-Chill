@@ -1,42 +1,37 @@
 import React, { Component } from "react";
-import classes from './SingIn.css'
+import classes from './StepOneSignUp.css'
+import Button from '../../../Button/Button'
+
+const STANDARD_PLAN = 'STANDARD_PLAN';
+const PREMIUM_PLAN = 'PREMIUM_PLAN';
 
 class StepOneSignUp extends Component {
 
-
 	state = {
-		premiumColorInactive: '#f2f2f2',
-		standardColorInactive: '#f2f2f2'
+		planSelected: null
 	}
 
 	selectPlan = (plan) =>{
-		if(plan === 'standardPlan'){
-			this.setState({
-				standardColorInactive: 'white',
-				premiumColorInactive : '#f2f2f2'
-			});
-			console.log('standard', this.state)
-		}else{
-			this.setState({
-				standardColorInactive : '#f2f2f2',
-				premiumColorInactive: 'white'
-			});
+		this.setState({
+			...this.state,
+			planSelected: plan
+		});
 
-			console.log('premium', this.state)
-		}
+
 	}
 
 
 
   render() {
-    //col s12 m8 offset-m2 l6 offset-l3
     return (
 			<div>
 				<div className="row">
 					<div className="col m4 offset-m2">
-						<div id="standardPlan" className={"card hoverable "+classes.Pointer} style={{backgroundColor: this.state.standardColorInactive}} onClick={() => this.selectPlan("standardPlan")}>
+						<div id="standardPlan" className={"card hoverable "+classes.Pointer} onClick={() => this.selectPlan(STANDARD_PLAN)}>
 							<div className="card-content black-text">
-								<span className={"card-title " +classes.CenterTittle}><strong>Standard</strong></span>
+								<span className={"card-title " +classes.CenterTittle}>
+									<strong>Standard</strong>
+									{this.state.planSelected === STANDARD_PLAN ?<span className="red new badge" data-badge-caption="Plan Selected"></span> : null}</span>
 								<div className={"row "+classes.PlanDescription}>
 									<ul>
 										<li className="row">
@@ -64,9 +59,11 @@ class StepOneSignUp extends Component {
 						</div>
 					</div>
 					<div className="col m4">
-					<div id="premiumPlan" className={"card hoverable "+classes.Pointer} style={{backgroundColor: this.state.premiumColorInactive}}  onClick={() => this.selectPlan("premiumPlan")}>
+					<div id="premiumPlan" className={"card hoverable "+classes.Pointer}  onClick={() => this.selectPlan(PREMIUM_PLAN)}>
 							<div className="card-content black-text">
-								<span className={"card-title " +classes.CenterTittle}><strong>Premium</strong></span>
+								<span className={"card-title " +classes.CenterTittle}>
+									<strong>Premium</strong>
+									{this.state.planSelected === PREMIUM_PLAN ?<span className="red new badge" data-badge-caption="Plan Selected"></span> : null}</span>
 								<div className={"row "+classes.PlanDescription}>
 									<ul>
 										<li className="row">
@@ -98,7 +95,11 @@ class StepOneSignUp extends Component {
 					*HD and Ultra HD availability subject to your Internet service and device capabilities.
 				</div>
 				<div className="row center-align">
-					<a className={"waves-effect waves-light btn-large " +classes.ButtonWidth}>CONTINUE</a>
+					<Button className={"waves-effect waves-light btn-large " +classes.ButtonWidth} 
+						clicked={() => this.props.clickNextStepOne(this.state.planSelected)}
+						disabled={this.state.planSelected === null}
+						iconAlign="" 
+						icon="">CONTINUE</Button>
 				</div>
 			</div>
     );

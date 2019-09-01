@@ -81,8 +81,6 @@ class FormSignUp extends Component {
       );
 		});
 		
-		console.log();
-
     return signUpElements;
 	}
 	
@@ -142,9 +140,15 @@ class FormSignUp extends Component {
       
 		});
 		
-		console.log(this.state)
+  }
+  
+  registerHandler = (event) =>{
+    event.preventDefault();
 
-	}
+    //HERE IS THE HTTP REQUEST TO REGISTER THE USER.
+    console.log(this.props.plan);
+    console.log(this.state)
+  }
 
   render() {
     const formElements = this.signUpConfig();
@@ -163,7 +167,7 @@ class FormSignUp extends Component {
         <div className={"card-stacked "+classes.ContainerCardStacked}>
           <h3 className="card-title center-align">Sign up</h3>
           <div className={"card-content "+classes.Form}>
-            <form>
+            <form onSubmit={this.registerHandler}>
               <div className={"row "+classes.RowForm}>{formElements}</div>
               <p >
                 <label>

@@ -35,7 +35,7 @@ class Home extends Component {
               programas y películas!
             </p>
           </div>
-          <div class="col s6">
+          <div className="col s6">
             <img
               className={"responsive-img " + style.ImgDescription}
               src="https://images.unsplash.com/photo-1520966324358-40c3723e15d1?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1051&q=80"
