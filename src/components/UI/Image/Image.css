@@ -1,0 +1,16 @@
+.PreLoader {
+    width: 100%;
+    height: 200px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.InderteminateColor{
+    background-color: #a9a9a9 !important;
+}
+
+.Progress{
+    height: 200px !important;
+    background-color: #b1b1b1;
+}

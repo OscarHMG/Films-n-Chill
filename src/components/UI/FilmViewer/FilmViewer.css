@@ -1,0 +1,21 @@
+.FilmViewer{
+    margin: 10px;
+    min-height: 300px;
+    max-height: 300px;
+    padding: 5px;
+   
+}
+
+.FilmViewerTitle{
+    display: block;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+
+}
+
+.Inline{
+    display: inline-flex !important;
+    width: 100%;
+}
+

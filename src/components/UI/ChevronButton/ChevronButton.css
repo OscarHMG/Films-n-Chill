@@ -1,0 +1,18 @@
+.ChevronButton{
+    /* color: white;
+    font-size: 50px;
+    background: black;
+    opacity: 0.5; */
+
+    
+    color: white;
+    font-size: 50px;
+    background: black;
+    height: 100%;
+    opacity: 0.5;
+    width: 61px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+   
+}
