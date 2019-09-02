@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import HorizontalCard from "../../Card/HorizontalCard";
 import Input from "../../Input/Input";
-import { Link } from "react-router-dom";
+import { Link, withRouter } from "react-router-dom";
 import Button from "../../Button/Button";
 import signUpImage from "../../../../assets/images/video_streaming.png";
 import classes from './FormSignUp.css';
@@ -148,6 +148,7 @@ class FormSignUp extends Component {
     //HERE IS THE HTTP REQUEST TO REGISTER THE USER.
     console.log(this.props.plan);
     console.log(this.state)
+    this.props.history.push('/home');
   }
 
   render() {
@@ -196,4 +197,4 @@ class FormSignUp extends Component {
   }
 }
 
-export default FormSignUp;
+export default withRouter(FormSignUp);

@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import FormSignUp from "../../../components/UI/Forms/FormSignUp/FormSignUp";
 import StepOneSignUp from '../../../components/UI/Forms/FormSignUp/StepOneSignUp/StepOneSignUp'
-export default class SignUp extends Component {
+class SignUp extends Component {
 
   state = {
     step: 1, 
@@ -29,3 +29,6 @@ export default class SignUp extends Component {
     return stepForm;
   }
 }
+
+
+export default SignUp;
