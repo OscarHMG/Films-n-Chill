@@ -4,7 +4,7 @@ import classes from './ChevronButton.css';
 const chevronButton = (props) =>{
     return(
       <div className={classes.ChevronButton}>
-				<i class="material-icons">
+				<i className="material-icons">
 					{props.icon}
 				</i>
 			</div>

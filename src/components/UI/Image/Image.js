@@ -1,10 +1,17 @@
 import React, { Component } from "react";
 import classes from './Image.css';
+import defaultImg from '../../../assets/images/default-film-img.jpg'
 
 class Image extends Component {
   constructor() {
     super();
-    this.state = { loaded: false };
+    this.state = { 
+      loaded: false
+    };
+  }
+
+  handleError = (ev) =>{
+    ev.target.src = defaultImg;
   }
 
   render() {
@@ -15,10 +22,10 @@ class Image extends Component {
       			<div className={"indeterminate "+classes.InderteminateColor}></div>
   				</div>	
         )}
-
         <img
           style={this.state.loaded ? {} : { display: "none" }}
           src={this.props.src}
+          onError={this.handleError}
           onLoad={() => this.setState({ loaded: true })}
         />
       </div>
@@ -28,12 +35,3 @@ class Image extends Component {
 
 export default Image;
 
-{
-  /* <div
-            style={{
-              background: 'grey',
-              height: '170px',
-              width: '100%'
-            }}
-          /> */
-}

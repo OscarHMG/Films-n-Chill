@@ -1,6 +1,7 @@
 import React, {Component} from 'react'
 import ItemsCarousel from 'react-items-carousel';
 import ChevronButton from '../../../components/UI/ChevronButton/ChevronButton'
+import classes from './Carousel.css'
 
 
 class Carousel extends Component{
@@ -13,13 +14,13 @@ class Carousel extends Component{
 
 	render(){
     return(
-        <div className="row">
+        <div className={"row "+classes.Carousel} >
 				<ItemsCarousel
 					gutter={12}
 					activePosition={'center'}
 					chevronWidth={60}
 					numberOfCards={4}
-					slidesToScroll={3}
+					slidesToScroll={4}
 					outsideChevron={false}
 					showSlither={false}
 					firstAndLastGutter={false}

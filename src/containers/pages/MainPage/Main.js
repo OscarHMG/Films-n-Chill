@@ -5,83 +5,57 @@ import FilmViewer from '../../../components/UI/FilmViewer/FilmViewer'
 
 import Carousel from '../../../components/UI/Carousel/Carousel';
 
-
-
-
-
 const API_KEY = process.env.REACT_APP_WEATHER_API_KEY;
 
 class Main extends Component {
 	state ={
-		films : [],
+		movies : [],
 		tvShows: [],
-		tvFilmsTrending: [],
+		trendingFilms: [],
 		filmsAreFetched: false
 	}
 
 
 	componentDidMount(){
-		axios.get(URLs.DISCOVER_MOVIE+'&api_key='+API_KEY)
-			.then( resp => {
 
-				this.setState({
-					...this.state,
-					films : resp.data.results
-				});
+		Promise.all([
+			axios.get(URLs.ALL_WEEK_TRENDING+'?api_key='+API_KEY),
+			axios.get(URLs.DISCOVER_MOVIE+'&api_key='+API_KEY),
+			axios.get(URLs.DISCOVER_TV_SHOW+'&api_key='+API_KEY)
+		])
+		.then(([trending, movies, tvShows]) =>{
+			console.log('Trending:',trending);
+			console.log('Movies:',movies);
+			console.log('tvShows', tvShows)
 
-				console.log(this.state)
-			})
-			.catch( err => {
-				
-				this.setState({
-					...this.state,
-					films: []
-				});
-
-			});
-
-		axios.get(URLs.DISCOVER_TV_SHOW+'&api_key='+API_KEY)
-		.then( resp => {
-
-				this.setState({
-					...this.state,
-					tvShows : resp.data.results
-				});
-
-			})
-			.catch( err => {
-				console.log(err);
+			this.setState({
+				...this.state,
+				trendingFilms: trending.data.results,
+				movies: movies.data.results,
+				tvShows: tvShows.data.results
 
 			});
+		})
+		.catch( error => console.log('Error'));
 
-			axios.get(URLs.ALL_WEEK_TRENDING+'?api_key='+API_KEY)
-			.then( resp => {
-				console.log('RESPONSE', resp.data.results);
-				this.setState({
-					...this.state,
-					tvFilmsTrending : resp.data.results
-				});
 
-			})
-			.catch( err => {
-				console.log(err);
-
-			});
+		
 	}
 
   render() {
 
-		let films = null;
+		let movies = null;
 		let tvShows = null;
 		let trending = null;
 
-		films = this.state.films.map( (f)=>{
+		movies = this.state.movies.map( (f)=>{
 			return(
 				<FilmViewer 
 					key={f.id}
 					img={URLs.IMAGES_URL+f.backdrop_path}
 					title={f.title}
 					overview={f.overview}
+					media_type={f.media_type}
 					fetched={!this.state.filmsAreFetched}>
 				</FilmViewer>
 			);
@@ -95,18 +69,20 @@ class Main extends Component {
 					img={URLs.IMAGES_URL+f.backdrop_path}
 					title={f.name}
 					overview={f.overview}
+					media_type={f.media_type}
 					fetched={!this.state.filmsAreFetched}>
 				</FilmViewer>
 			);
 		});
 
-		trending = this.state.tvFilmsTrending.map( (f)=>{
+		trending = this.state.trendingFilms.map( (f)=>{
 			return(
 				
 				<FilmViewer 
 					key={f.id}
 					img={URLs.IMAGES_URL+f.backdrop_path}
-					title={f.original_title}
+					title={f.original_title === undefined ? f.name : f.original_title }
+					media_type={f.media_type}
 					overview={f.overview}
 					fetched={!this.state.filmsAreFetched}>
 				</FilmViewer>
@@ -121,11 +97,11 @@ class Main extends Component {
 
 				<div>
 					<h4>Trending shows for this week</h4>
-					<Carousel films={trending}></Carousel>
+					<Carousel films={trending} ></Carousel>
 				</div>
 
 					<h4>Discover - Films</h4>
-					<Carousel films={films}></Carousel>
+					<Carousel films={movies}></Carousel>
 				</div>
 
 				<div>

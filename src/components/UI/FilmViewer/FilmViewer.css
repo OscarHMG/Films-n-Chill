@@ -1,7 +1,7 @@
 .FilmViewer{
     margin: 10px;
-    min-height: 300px;
-    max-height: 300px;
+    min-height: 300px !important;
+    max-height: 300px !important;
     padding: 5px;
    
 }

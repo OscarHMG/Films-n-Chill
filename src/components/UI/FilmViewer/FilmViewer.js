@@ -7,7 +7,10 @@ import Image from '../Image/Image'
 
 class FilmViewer extends Component {
 	
+	
 	render(){
+
+
 		return (
 			<div className={"card col s12 hoverable "+classes.FilmViewer}>
 				<div className="card-image waves-effect waves-block waves-light">
